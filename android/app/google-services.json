@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "268201396807",
+    "firebase_url": "https://adminpanel-e1d50-default-rtdb.firebaseio.com",
+    "project_id": "adminpanel-e1d50",
+    "storage_bucket": "adminpanel-e1d50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268201396807:android:e1a72471a67e30d2ae3f62",
+        "android_client_info": {
+          "package_name": "com.example.flutter_text_to_speech_tutorial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268201396807-ge6hajvoj6chf2ksr4bu8p8mf8dr7h01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMRaDxuNKEUzPVTnNhXSkhrCn2iPOw14s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "268201396807-ge6hajvoj6chf2ksr4bu8p8mf8dr7h01.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "268201396807-jk495ahaa5to48cqvu929fbd7hi6g02e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterTextToSpeechTutorial.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
