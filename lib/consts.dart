@@ -1,13 +1,27 @@
-String  CHAR1_VOICE1 = "Hey, have you heard about  the  Chitharal \n Jain Rock Cut Temple in Kanyakumari?";
-String CHAR2_VOICE1 = "Yeah, I know about it.\n It's a temple carved out of a huge rock, right?";
+// consts.dart
 
-String CHAR1_VOICE2 ="That's the one! Do you know how old it is?";
-String CHAR2_VOICE2 ="it is really old, like from the 9th century AD";
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-String CHAR1_VOICE3 ="What makes it special?";
-String CHAR2_VOICE3 ="It's one of the few Jain temples in Tamil Nadu,\n so it's pretty unique.";
+class FirestoreService {
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-String CHAR1_VOICE4=" I'm thinking of visiting.\n Anything I should keep in mind?";
-String CHAR2_VOICE4="okk";
+  static Future<String> fetchStringValue(String CHAR1_VOICE1) async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot =
+    await _firestore.collection('Characters').doc('Chitharal').get();
+    if (snapshot.exists) {
+      return snapshot.data()?[CHAR1_VOICE1] ?? '';
+    } else {
+      return '';
+    }
+  }
+}
 
-String PLACE_NAME="Chitharal Jain Rock Cut Temple";
+class FirestoreFields {
+  static const String char1Voice1 = 'CHAR1_VOICE1';
+  static const String char2Voice1 = 'CHAR2_VOICE1';
+  static const String char1Voice2 = 'CHAR1_VOICE2';
+  static const String char2Voice2 = 'CHAR2_VOICE2';
+  static const String char1Voice3 = 'CHAR1_VOICE3';
+  static const String char2Voice3 = 'CHAR2_VOICE3';
+  static const String placeName = 'place_name';
+}

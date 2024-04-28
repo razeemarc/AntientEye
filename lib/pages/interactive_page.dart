@@ -6,6 +6,8 @@ import 'map_page.dart';
 
 
 
+
+
 class ImageSliderApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     initTTS();
-    _flutterTts.speak(CHAR1_VOICE1); // Start speaking when the page is opened
+    _flutterTts.speak(FirestoreFields.char1Voice1); // Start speaking when the page is opened
 
     _speakMaleVoiceAfterDelay();
   }
@@ -68,35 +70,35 @@ class _HomePageState extends State<HomePage> {
       _flutterTts.setVoice({
         "name": "en-us-x-sfg#male_5-local",
       });
-      _flutterTts.speak(CHAR2_VOICE1); // Speak the male voice message
+      _flutterTts.speak(FirestoreFields.char2Voice1); // Speak the male voice message
     });
     Future.delayed(Duration(seconds: 16), () {
       _flutterTts.setLanguage("en-US"); // Set language to English
       _flutterTts.setVoice({
         "name": "en-us-x-sfg#male_1-local",
       });
-      _flutterTts.speak(CHAR1_VOICE2); // Speak the male voice message
+      _flutterTts.speak(FirestoreFields.char1Voice2); // Speak the male voice message
     });
     Future.delayed(Duration(seconds: 24), () {
       _flutterTts.setLanguage("en-IN"); // Set language to English
       _flutterTts.setVoice({
         "name": "en-us-x-sfg#male_5-local",
       });
-      _flutterTts.speak(CHAR2_VOICE2); // Speak the male voice message
+      _flutterTts.speak(FirestoreFields.char2Voice2); // Speak the male voice message
     });
     Future.delayed(Duration(seconds: 30), () {
       _flutterTts.setLanguage("en-US"); // Set language to English
       _flutterTts.setVoice({
         "name": "en-us-x-sfg#male_1-local",
       });
-      _flutterTts.speak(CHAR1_VOICE3); // Speak the male voice message
+      _flutterTts.speak(FirestoreFields.char1Voice3); // Speak the male voice message
     });
     Future.delayed(Duration(seconds: 38), () {
       _flutterTts.setLanguage("en-IN"); // Set language to English
       _flutterTts.setVoice({
         "name": "en-us-x-sfg#male_5-local",
       });
-      _flutterTts.speak(CHAR2_VOICE3); // Speak the male voice message
+      _flutterTts.speak(FirestoreFields.char2Voice3); // Speak the male voice message
     });
   }
 
@@ -149,8 +151,8 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
   bool showFirstCharacter = true;
   bool showSecondCharacter = false;
 
-  String firstCharacterText = CHAR1_VOICE1;
-  String secondCharacterText = CHAR2_VOICE1;
+  String firstCharacterText = FirestoreFields.char1Voice1;
+  String secondCharacterText = FirestoreFields.char2Voice1;
 
   @override
   void initState() {
@@ -163,7 +165,7 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
         showFirstCharacter = false;
         showSecondCharacter = true;
         if (showSecondCharacter) {
-          firstCharacterText = CHAR1_VOICE2;
+          firstCharacterText = FirestoreFields.char1Voice2;
         }
       });
     });
@@ -172,7 +174,7 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
         showFirstCharacter = true;
         showSecondCharacter = false;
         if (showFirstCharacter) {
-          secondCharacterText = CHAR2_VOICE2;
+          secondCharacterText = FirestoreFields.char2Voice2;
         }
       });
     });
@@ -181,7 +183,7 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
         showFirstCharacter = false;
         showSecondCharacter = true;
         if (showSecondCharacter) {
-          firstCharacterText = CHAR1_VOICE3;
+          firstCharacterText = FirestoreFields.char1Voice3;
         }
       });
     });
@@ -190,7 +192,7 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
         showFirstCharacter = true;
         showSecondCharacter = false;
         if (showFirstCharacter) {
-          secondCharacterText = CHAR2_VOICE3;
+          secondCharacterText = FirestoreFields.char2Voice3;
         }
       });
     });
@@ -199,7 +201,7 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
         showFirstCharacter = false;
         showSecondCharacter = true;
         if (showSecondCharacter) {
-          firstCharacterText = CHAR1_VOICE4;
+          firstCharacterText = FirestoreFields.char2Voice3;
         }
       });
     });
@@ -254,7 +256,7 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
               ),
               child: Center(
                 child: Text(
-                  PLACE_NAME,
+                  FirestoreFields.placeName,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
