@@ -356,7 +356,6 @@ class _RatingScreenState extends State<RatingScreen> {
 
     // Get the selected place, emoji, and comment
     String selectedPlace = _selectedPlace!;
-
     String selectedEmojiLabel = _getEmojiLabel(_selectedEmojiIndex);
     String comment = _commentController.text;
     String name = _nameController.text;
@@ -366,13 +365,28 @@ class _RatingScreenState extends State<RatingScreen> {
       'place': selectedPlace,
       'rate': selectedEmojiLabel,
       'comment': comment,
-      'username':name,
-
+      'username': name,
     };
 
     try {
+      // Determine collection name based on selected place
+      String collectionName;
+      switch (selectedPlace) {
+        case 'Chitharal Rock Cut Temple':
+          collectionName = 'ChitharalFeedback';
+          break;
+        case 'Marunthu Kootai':
+          collectionName = 'MKFeedback';
+          break;
+        case 'Vattakottai':
+          collectionName = 'VattaKottaiFeedback';
+          break;
+        default:
+          collectionName = 'ChitharalFeedback'; // Default collection name
+      }
+
       // Add feedback data to Firestore
-      await FirebaseFirestore.instance.collection('ChitharalFeedback').add(feedbackData);
+      await FirebaseFirestore.instance.collection(collectionName).add(feedbackData);
       // Feedback submitted successfully
       print('Feedback submitted successfully!');
       // Clear the form
@@ -391,6 +405,7 @@ class _RatingScreenState extends State<RatingScreen> {
       print('Error submitting feedback: $e');
     }
   }
+
 
   // Helper method to get the emoji based on index
   String _getEmoji(int index) {
