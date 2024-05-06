@@ -10,7 +10,6 @@ class FeedbackChitharal extends StatefulWidget {
 
 class _FeedbackChitharalState extends State<FeedbackChitharal> {
   List<Conversation> characterItems =[];
-
   @override
   void initState() {
     fetchCharacterVoices();
