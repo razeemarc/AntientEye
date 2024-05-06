@@ -9,39 +9,37 @@ class FeedbackChitharal extends StatefulWidget {
 }
 
 class _FeedbackChitharalState extends State<FeedbackChitharal> {
- List<Conversation> characterItems =[];
+  List<Conversation> characterItems =[];
 
   @override
   void initState() {
     fetchCharacterVoices();
     super.initState();
-   
+
   }
   fetchCharacterVoices() async{
     var records =await FirebaseFirestore.instance.collection('ChitharalFeedback').get();
     mapRecords(records);
   }
-mapRecords(QuerySnapshot<Map<String,dynamic>> records){
-  var _list=records.docs.map(
-        (conversation)=>Conversation(
-            id:conversation.id,
-          username:conversation['username'],
-          place:conversation['place'],
-          rate:conversation['rate'],
-          comment:conversation['comment'],
-        ),
-  ).toList();
-  setState(() {
-    characterItems=_list;
-  });
+  mapRecords(QuerySnapshot<Map<String,dynamic>> records){
+    var _list=records.docs.map(
+          (conversation)=>Conversation(
+        id:conversation.id,
+        username:conversation['username'],
+        place:conversation['place'],
+        rate:conversation['rate'],
+        comment:conversation['comment'],
+      ),
+    ).toList();
+    setState(() {
+      characterItems=_list;
+    });
 
   }
   @override
-    Widget build(BuildContext context){
+  Widget build(BuildContext context){
     return SafeArea(
-
       child:Scaffold(
-
         appBar: AppBar(
           title: Text(
             "Feedback",
@@ -53,7 +51,6 @@ mapRecords(QuerySnapshot<Map<String,dynamic>> records){
         ),
 
         body: ListView.builder(
-
           itemCount: characterItems.length,
           itemBuilder: (context, index) {
             String username = characterItems[index].username;
@@ -91,25 +88,25 @@ mapRecords(QuerySnapshot<Map<String,dynamic>> records){
         ),
 
         floatingActionButton: Positioned(
-        bottom: 20.0,
-        right: 20.0,
-        child: FloatingActionButton(
-          onPressed: () {
-            // Navigate to the next page
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => RatingScreen()),
-            );
-          },
-          backgroundColor: Color(0xFFE1A308),
-          child: Icon(Icons.edit, color: Colors.white),
+          bottom: 20.0,
+          right: 20.0,
+          child: FloatingActionButton(
+            onPressed: () {
+              // Navigate to the next page
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RatingScreen()),
+              );
+            },
+            backgroundColor: Color(0xFFE1A308),
+            child: Icon(Icons.edit, color: Colors.white),
+          ),
         ),
-      ),
 
-    ),
+      ),
     );
   }
-  }
+}
 
 
 

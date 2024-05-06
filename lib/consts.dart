@@ -17,11 +17,11 @@ class FirestoreService {
 }
 
 class FirestoreFields {
-  static const String char1Voice1 = 'CHAR1_VOICE1';
-  static const String char2Voice1 = 'CHAR2_VOICE1';
-  static const String char1Voice2 = 'CHAR1_VOICE2';
-  static const String char2Voice2 = 'CHAR2_VOICE2';
-  static const String char1Voice3 = 'CHAR1_VOICE3';
-  static const String char2Voice3 = 'CHAR2_VOICE3';
-  static const String placeName = 'place_name';
+  static const String char1Voice1 = 'Hey, have you heard about  the  Chitharal  Jain Rock Cut Temple in Kanyakumari?';
+  static const String char2Voice1 = 'Yeah, I know about it. It\'s a temple carved out of a huge rock, right?';
+  static const String char1Voice2 = 'That\'s the one! Do you know how old it is?';
+  static const String char2Voice2 = 'it is really old, like from the 9th century AD';
+  static const String char1Voice3 = 'What makes it special?';
+  static const String char2Voice3 = 'It\'s one of the few Jain temples in Tamil Nadu, so it\'s pretty unique.';
+  static const String placeName = 'Chitharal Rocket Temple';
 }

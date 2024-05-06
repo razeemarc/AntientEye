@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'interactive_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'chatbot.dart';
+
 final Uri _url = Uri.parse('https://my.atlist.com/map/06f809f2-7835-4768-b818-607f1261a494/?share=true');
+
 class ContentPage extends StatelessWidget {
-  const ContentPage({super.key});
+  const ContentPage({Key? key}) : super(key: key);
+
   void _navigateToChatScreen(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const ChatScreen()),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // This line removes the debug banner
       home: SafeArea(
         child: GestureDetector(
-
           child: Scaffold(
             body: Stack(
               children: [
@@ -75,7 +78,7 @@ class ContentPage extends StatelessWidget {
                     ),
                     child: const SingleChildScrollView(
                       child: Text(
-                        '               Chittaral, also known as Chittaral Rock Cut Temple, is a historically significant site located in Chittaral village near the town of Kanyakumari in Tamil Nadu, India. The primary attraction of this site is its rock-cut sculptures dating back to the 8th century AD. Chittaral is renowned for its Jain rock-cut sculptures, which are believed to have been created during the Pandyan dynasty rule. These sculptures depict various Jain Tirthankaras and deities, including Mahavira, Parshvanatha, and Bahubali. The exact dating of the sculptures is uncertain, but they are generally believed to date back to around the 8th century AD.',
+                        'Chitharal Rock Cut Temple, also known as Chitharal Jain Temple or Chitharal Malai Kovil, stands as a testament to the rich cultural heritage and architectural brilliance of ancient India. Situated amidst the serene landscape of Chitharal village near Kanyakumari in Tamil Nadu, this remarkable site holds a plethora of historical and religious significance.\n\nThe temple complex is carved out of a single rocky hill, showcasing the mastery of ancient artisans who sculpted intricate structures into the natural rock formations. Dating back to the 8th century AD, during the reign of the Pandyan dynasty, these rock-cut sculptures serve as a window into the religious and artistic fervor of that era.\n\nOne of the most striking features of Chitharal Rock Cut Temple is its association with Jainism. The site is adorned with magnificent sculptures depicting revered Jain Tirthankaras (spiritual teachers) and deities. Among them, the figures of Lord Mahavira, the 24th Tirthankara, and Lord Bahubali, an iconic symbol of Jainism renowned for his towering statue at Shravanabelagola, hold special reverence.\n\nThe temple complex not only showcases the religious ethos of Jainism but also reflects the cultural amalgamation prevalent in ancient Tamil Nadu. The intricate carvings and inscriptions found here bear testimony to the harmonious coexistence of different faiths and ideologies during that period.\n\nVisitors to Chitharal are not only mesmerized by the architectural splendor but also by the tranquil ambiance that envelops the site. Surrounded by lush greenery and panoramic vistas, the temple offers a serene retreat for spiritual seekers and history enthusiasts alike.\n\nFurthermore, ongoing efforts in preservation and restoration ensure that future generations can continue to marvel at the timeless beauty and historical significance of Chitharal Rock Cut Temple. As a beacon of cultural heritage, it serves as a reminder of the rich tapestry of India\'s past and the enduring legacy of its ancient civilizations.',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 14,
@@ -108,7 +111,6 @@ class ContentPage extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
-
                         ),
                       ],
                     ),
@@ -137,7 +139,6 @@ class ContentPage extends StatelessWidget {
                   ),
                 ),
 
-
                 Positioned(
                   bottom: 20.0, // Adjust this value to change the button's vertical position
                   right: 20.0, // Adjust this value to change the button's horizontal position
@@ -157,8 +158,10 @@ class ContentPage extends StatelessWidget {
     );
   }
 }
+
 Future<void> _launchUrl() async {
   if (!await launchUrl(_url)) {
     throw Exception('Could not launch $_url');
   }
 }
+
