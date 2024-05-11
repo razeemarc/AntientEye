@@ -6,7 +6,7 @@ import 'map_page.dart';
 
 
 
-class ImageSliderApp extends StatelessWidget {
+class ImageSliderAppMK extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -142,7 +142,7 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
     'assets/mk_img1.jpg',
     'assets/mk_img2.jpg',
     'assets/mk_img3.jpg',
-    'assets/chittaral4.jpg',
+    'assets/mk_img4.jpg',
     // Add more image paths as necessary
   ];
 
@@ -194,7 +194,7 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
         }
       });
     });
-    Future.delayed(Duration(seconds: 40), () {
+    Future.delayed(Duration(seconds: 38), () {
       setState(() {
         showFirstCharacter = false;
         showSecondCharacter = true;
@@ -243,22 +243,33 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
           ),
           Positioned(
             top: 58,
-            left: 110,
+            left: 120,
             child: Container(
-              width: 200,
+              width: 180,
               height: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(32),
                 color: Color.fromRGBO(225, 163, 8, 0.75),
               ),
-              child: Center(
-                child: Text(
-                  PLACE_NAME,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8), // Adjust padding as needed
+                    child: Icon(
+                      Icons.location_on, // Your location icon
+                      color: Colors.white,
+                    ),
                   ),
-                ),
+                  Center(
+                    child: Text(
+                      PLACE_NAME,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

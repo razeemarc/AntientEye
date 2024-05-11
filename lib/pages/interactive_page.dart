@@ -246,22 +246,33 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
             ),
             Positioned(
               top: 58,
-              left: 50,
+              left: 80,
               child: Container(
-                width: 300,
+                width: 250,
                 height: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(32),
                   color: Color.fromRGBO(225, 163, 8, 0.75),
                 ),
-                child: Center(
-                  child: Text(
-                    FirestoreFields.placeName,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8), // Adjust padding as needed
+                      child: Icon(
+                        Icons.location_on, // Your location icon
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
+                    Center(
+                      child: Text(
+                        FirestoreFields.placeName,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

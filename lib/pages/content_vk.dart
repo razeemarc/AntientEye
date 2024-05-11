@@ -1,18 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'chatbot.dart';
-import 'interactivepage_mk.dart';
+import 'history.dart';
 
-final Uri _url = Uri.parse('https://my.atlist.com/map/b8583955-7f33-40cc-99c5-c2e032901afc/?share=true');
+final Uri _url = Uri.parse('https://my.atlist.com/map/06f809f2-7835-4768-b818-607f1261a494/?share=true');
 
-class ContentPageVK extends StatelessWidget {
-  const ContentPageVK({Key? key});
+class ContentPageVK extends StatefulWidget {
+  const ContentPageVK({Key? key}) : super(key: key);
 
+  @override
+  _ContentPageVKState createState() => _ContentPageVKState();
+}
+
+class _ContentPageVKState extends State<ContentPageVK> {
   void _navigateToChatScreen(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const ChatScreen()),
     );
+  }
+
+  List<History> historyItems = [];
+
+  @override
+  void initState() {
+    fetchHistory();
+    super.initState();
+  }
+
+  Future<void> fetchHistory() async {
+    var records = await FirebaseFirestore.instance.collection('VattaKottaiHistory').get();
+    mapRecords(records);
+  }
+
+  void mapRecords(QuerySnapshot<Map<String, dynamic>> records) {
+    var _list = records.docs.map(
+          (conversation) => History(
+        id: conversation.id,
+        history: conversation['history'],
+      ),
+    ).toList();
+    setState(() {
+      historyItems = _list.cast<History>(); // Added casting to History object
+    });
   }
 
   @override
@@ -37,7 +69,7 @@ class ContentPageVK extends StatelessWidget {
                     ),
                     child: const Center(
                       child: Text(
-                        'Historical Contents Of MarunthuKottai',
+                        'Historical Contents Of Vattakottai',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -56,7 +88,7 @@ class ContentPageVK extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: const DecorationImage(
-                        image: AssetImage('assets/img1.jpg'),
+                        image: AssetImage('assets/vk_img1.jpg'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -75,16 +107,9 @@ class ContentPageVK extends StatelessWidget {
                       color: const Color.fromRGBO(249, 246, 246, 0.9),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const SingleChildScrollView(
-                      child: Text(
-                        'Marunthu Kottai, also known as Marunthu Kottai, is a historically significant site located in Marunthu Kottai village near the town of Kanyakumari in Tamil Nadu, India. The primary attraction of this site is its historical fort dating back to ancient times. Marunthu Kottai is renowned for its architectural beauty and historical significance, offering visitors a glimpse into the region\'s rich past.',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff000000),
-                          height: 1.5,
-                        ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: historyItems.map((item) => Text(item.history)).toList(),
                       ),
                     ),
                   ),
@@ -92,7 +117,7 @@ class ContentPageVK extends StatelessWidget {
                 // Back Button
                 Positioned(
                   top: 12,
-                  left:14,
+                  left: 14,
                   child: CircleAvatar(
                     backgroundColor: const Color.fromRGBO(225, 163, 8, 0.25),
                     radius: 20,
@@ -105,10 +130,7 @@ class ContentPageVK extends StatelessWidget {
                             color: Colors.black,
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => MarunthukottaiPage()),
-                            );
+                            Navigator.pop(context);
                           },
                         ),
                       ],
@@ -125,7 +147,7 @@ class ContentPageVK extends StatelessWidget {
                       onPressed: _launchUrl,
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: Color.fromRGBO(137, 164, 184, 1),
+                        backgroundColor: const Color.fromRGBO(137, 164, 184, 1),
                       ),
                       child: Text(
                         'View Direction',
@@ -155,10 +177,10 @@ class ContentPageVK extends StatelessWidget {
       ),
     );
   }
-}
 
-Future<void> _launchUrl() async {
-  if (!await launchUrl(_url)) {
-    throw Exception('Could not launch $_url');
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 }

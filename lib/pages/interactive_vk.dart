@@ -6,7 +6,7 @@ import 'map_page.dart';
 
 
 
-class ImageSliderApp extends StatelessWidget {
+class ImageSliderAppVK extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -139,10 +139,10 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
   int _currentPage = 0;
 
   List<String> _images = [
-    'assets/chittaral1.jpg',
-    'assets/chittaral2.jpg',
-    'assets/chittaral3.jpg',
-    'assets/chittaral4.jpg',
+    'assets/vk_img1.jpg',
+    'assets/vk_img2.jpg',
+    'assets/vk_img3.jpg',
+    'assets/vk_img4.jpeg',
     // Add more image paths as necessary
   ];
 
@@ -243,25 +243,37 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
           ),
           Positioned(
             top: 58,
-            left: 50,
+            left: 120,
             child: Container(
-              width: 300,
+              width: 150,
               height: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(32),
                 color: Color.fromRGBO(225, 163, 8, 0.75),
               ),
-              child: Center(
-                child: Text(
-                  PLACE_NAME,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8), // Adjust padding as needed
+                    child: Icon(
+                      Icons.location_on, // Your location icon
+                      color: Colors.white,
+                    ),
                   ),
-                ),
+                  Center(
+                    child: Text(
+                      PLACE_NAME,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
+
           Padding(
             padding: EdgeInsets.only(bottom: 350, left: 30, right: 30),
             child: Center(

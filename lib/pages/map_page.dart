@@ -137,7 +137,7 @@ class MapPage extends StatelessWidget {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => HomePage()),
+                              MaterialPageRoute(builder: (context) => ImageSliderApp()),
                             );
                           },
                           child: Opacity(

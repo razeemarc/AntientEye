@@ -100,7 +100,7 @@ class _RatingScreenState extends State<RatingScreen> {
                   height: 45, // Adjust the height as needed
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
                         color: Color(0x40000000),

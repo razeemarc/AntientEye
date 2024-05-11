@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'chatbot.dart';
+import 'history.dart';
 
+final Uri _url = Uri.parse('https://my.atlist.com/map/06f809f2-7835-4768-b818-607f1261a494/?share=true');
 
-final Uri _url = Uri.parse('https://my.atlist.com/map/fee95552-dbaa-405a-b962-9499b0bbbc82/?share=true');
+class ContentPageMK extends StatefulWidget {
+  const ContentPageMK({Key? key}) : super(key: key);
 
-class ContentPageMK extends StatelessWidget {
-  const ContentPageMK({Key? key});
+  @override
+  _ContentPageMKState createState() => _ContentPageMKState();
+}
 
+class _ContentPageMKState extends State<ContentPageMK> {
   void _navigateToChatScreen(BuildContext context) {
     Navigator.push(
       context,
@@ -15,128 +22,165 @@ class ContentPageMK extends StatelessWidget {
     );
   }
 
+  List<History> historyItems = [];
+
+  @override
+  void initState() {
+    fetchHistory();
+    super.initState();
+  }
+
+  Future<void> fetchHistory() async {
+    var records = await FirebaseFirestore.instance.collection('MarunthuKottaiHistory').get();
+    mapRecords(records);
+  }
+
+  void mapRecords(QuerySnapshot<Map<String, dynamic>> records) {
+    var _list = records.docs.map(
+          (conversation) => History(
+        id: conversation.id,
+        history: conversation['history'],
+      ),
+    ).toList();
+    setState(() {
+      historyItems = _list.cast<History>(); // Added casting to History object
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false, // This line removes the debug banner
       home: SafeArea(
-        child: Scaffold(
-          body: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // Text Box at the top of the second page
-                    Container(
-                      margin: const EdgeInsets.only(top: 45, left: 10),
-                      width: 210,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(32),
-                        color: const Color.fromRGBO(225, 163, 8, 0.75),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          ' MarunthuKottai',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
+        child: GestureDetector(
+          child: Scaffold(
+            body: Stack(
+              children: [
+                // Text Box at the top of the second page
+                Positioned(
+                  top: 58,
+                  left: 55,
+                  child: Container(
+                    width: 300,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      color: const Color.fromRGBO(225, 163, 8, 0.75),
                     ),
-                    // Image
-                    Container(
-                      margin: const EdgeInsets.only(top: 40, left: 10),
-                      width: 319,
-                      height: 219,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: const DecorationImage(
-                          image: AssetImage('assets/img1.jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    // Text Below Image
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: const Color.fromRGBO(249, 246, 246, 0.9),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                    child: const Center(
                       child: Text(
-                        'Marunthu Kottai, also known as Marunthu Kottai Malai, is a Tamil term that translates to "Medicine Fort" or "Medicinal Fort" in English. It refers to a traditional medicinal preparation from Tamil Nadu, a state in southern India.Marunthu Kottai is essentially a concoction or formulation made by grinding together various herbs, roots, spices, and other natural ingredients known for their medicinal properties. These ingredients are carefully selected based on their therapeutic benefits and are believed to promote health and well-being.The preparation of Marunthu Kottai typically involves grinding the ingredients into a fine powder or paste, which is then often mixed with honey, ghee (clarified butter), or other mediums for consumption. It can be administered orally or applied externally, depending on the intended purpose and the specific ingredients used.Marunthu Kottai is often used in traditional Tamil medicine, known as Siddha or Siddha Vaidyam, which has a long history dating back thousands of years. Siddha medicine is based on the concept of balancing the body\'s vital energies and restoring harmony to achieve optimal health.Different formulations of Marunthu Kottai may target specific health concerns such as digestive issues, respiratory ailments, joint pain, skin disorders, and more. However, it\'s important to note that while Siddha medicine has been practiced for centuries and is still widely used in certain communities, its efficacy and safety may vary, and it\'s always advisable to consult with a qualified healthcare practitioner before using any traditional remedies.',
+                        'Historical Contents Of Marunthukottai',
                         style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff000000),
-                          height: 1.5,
+                          color: Colors.white,
+                          fontSize: 16,
                         ),
                       ),
-                    ),
-                    // View Direction Button
-                    Container(
-                      margin: const EdgeInsets.only(left: 50, right: 100, bottom: 5, top: 10),
-                      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
-                      child: ElevatedButton(
-                        onPressed: _launchUrl,
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Color.fromRGBO(137, 164, 184, 1),
-                        ),
-                        child: Text(
-                          'View Direction',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Back Button
-              Positioned(
-                top: 12,
-                left: 14,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: CircleAvatar(
-                    backgroundColor: const Color.fromRGBO(225, 163, 8, 0.25),
-                    radius: 20,
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
                     ),
                   ),
                 ),
-              ),
-
-            ],
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              _navigateToChatScreen(context);
-            },
-            child: const Icon(Icons.chat, color: Colors.white),
-            backgroundColor: const Color(0xFFE1A308),
+                // Image
+                Positioned(
+                  top: 140,
+                  left: 45,
+                  child: Container(
+                    width: 319,
+                    height: 219,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: const DecorationImage(
+                        image: AssetImage('assets/mk_img3.jpg'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                // Text Below Image
+                Positioned(
+                  top: 390,
+                  left: 20,
+                  right: 20,
+                  child: Container(
+                    width: 400,
+                    height: 680,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(249, 246, 246, 0.9),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: historyItems.map((item) => Text(item.history)).toList(),
+                      ),
+                    ),
+                  ),
+                ),
+                // Back Button
+                Positioned(
+                  top: 12,
+                  left: 14,
+                  child: CircleAvatar(
+                    backgroundColor: const Color.fromRGBO(225, 163, 8, 0.25),
+                    radius: 20,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 50,
+                  right: 100,
+                  bottom: 5,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0), // Adjust vertical padding to increase height
+                    child: ElevatedButton(
+                      onPressed: _launchUrl,
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color.fromRGBO(137, 164, 184, 1),
+                      ),
+                      child: Text(
+                        'View Direction',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 20.0, // Adjust this value to change the button's vertical position
+                  right: 20.0, // Adjust this value to change the button's horizontal position
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      _navigateToChatScreen(context);
+                    },
+                    child: const Icon(Icons.chat, color: Colors.white), // Change the icon color here
+                    backgroundColor: const Color(0xFFE1A308), // Change the background color here
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-Future<void> _launchUrl() async {
-  if (!await launchUrl(_url)) {
-    throw Exception('Could not launch $_url');
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 }
-
-
